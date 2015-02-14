@@ -24,16 +24,19 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 
 		$node = new db_nodes($row->id);
 				
-		$nodesDataset[] = array(	'id'							=> $node->getID(),
-									'name'							=> $node->getTheName(),
-									'node_type'						=> 'AccessPoint',
-									'href'							=> OPTION_NODEHREFBASE . '/' . $node->getHWID(),
-									'status'						=> array(	'online'		=> $node->isActive(),
-																				'clients'		=> $node->getClientsCount(),
-																				'lastContact'	=> $node->getLastSeenWithTimezone() ),
-									'position'						=> array(   'lat'			=> $node->getLatitude(),
-																				'long'			=> $node->getLongitude() ) );
-								
+		if(!$node->hideOnMap()) {
+			
+			$nodesDataset[] = array(	'id'							=> $node->getID(),
+										'name'							=> $node->getTheName(),
+										'node_type'						=> 'AccessPoint',
+										'href'							=> OPTION_NODEHREFBASE . '/' . $node->getHWID(),
+										'status'						=> array(	'online'		=> $node->isActive(),
+																					'clients'		=> $node->getClientsCount(),
+																					'lastContact'	=> $node->getLastSeenWithTimezone() ),
+										'position'						=> array(   'lat'			=> $node->getLatitude(),
+																					'long'			=> $node->getLongitude() ) );
+		
+		}		
 	}
 	
 	
