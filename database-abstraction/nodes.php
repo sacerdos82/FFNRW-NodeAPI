@@ -103,9 +103,11 @@ class db_nodes {
 	
 	public function isActive() {
 		
-		if($this->lastSeen->getTimestamp() > (OPTION_WHATMEANSACTIVEINMINUTES * 60)) {
+		$timestamp = time() - (OPTION_WHATMEANSACTIVEINMINUTES * 60);
+		if($this->lastSeen->getTimestamp() > $timestamp) {
 			
 			return true;
+			
 			
 		} else { return false; }
 		
