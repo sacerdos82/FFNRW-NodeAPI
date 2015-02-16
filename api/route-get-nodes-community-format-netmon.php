@@ -44,9 +44,11 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 	$now = new DateTime(date('Y-m-d H:i:s'));
 	$now->SetTimezone(new DateTimeZone('Europe/Berlin'));
 
+	if($community->getScreenname() != '') { $screenname = $community->getScreenname(); } else { $screenname = 'Freifunk '. ucfirst($community->getTheName()); }
+
 	$response = array(	'version'			=> '1.0.0',
 						'updated_at'		=> $now->format('Y-m-d H:i:sP'),
-						'community'			=> array(	'name' 	=> ucfirst($community->getTheName()),
+						'community'			=> array(	'name' 	=> $screenname,
 														'href' 	=> $community->getURL() )	);
 	
 	$response['nodes'] = $nodesDataset;

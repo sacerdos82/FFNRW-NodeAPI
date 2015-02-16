@@ -2,7 +2,7 @@
 
 $api->get('/get/nodes/active', function() use ($api) {
 
-	$nodesDateset = array();
+	$nodesDataset = array();
 
 	$timestamp = time() - (OPTION_WHATMEANSACTIVEINMINUTES * 60);
 	$result = dbSQL('SELECT id FROM '. TBL_NODES .' WHERE lastseen > "'. $timestamp .'" ORDER BY id ASC');
@@ -49,7 +49,8 @@ $api->get('/get/nodes/active', function() use ($api) {
 		
 	} else {
 		
-		API_Response(200, $nodesDataset);
+		if(empty($nodesDataset)) { API_Response(200, ''); }
+			else { API_Response(200, $nodesDataset); }
 		
 	}
 	
