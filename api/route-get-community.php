@@ -23,8 +23,13 @@ $api->get('/get/community/:communityID', function($communityID) use ($api) {
 								'Name'							=> $community->getTheName(),
 								'Latitude'						=> $community->getLatitude(),
 								'Longitude'						=> $community->getLongitude(),
-								'Href' 							=> $community->getHref(),
-								'Email'							=> $community->getEmail() );
+								'URL' 							=> $community->getURL(),
+								'Email'							=> $community->getEmail(),
+								'Screenname'					=> $community->getScreenname(),
+								'Phone'							=> $community->getPhone(),
+								'Facebook'						=> $community->getFacebook(),
+								'Twitter'						=> $community->getTwitter(),
+								'Description'					=> $community->getDescription() );
 	
 	
 	if(isset($_SESSION['errors'])) {

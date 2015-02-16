@@ -23,7 +23,7 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 	while($row = $result->fetch_object()) {
 
 		$node = new db_nodes($row->id);
-				
+		
 		if(!$node->hideOnMap()) {
 			
 			$nodesDataset[] = array(	'id'							=> $node->getID(),
@@ -36,7 +36,8 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 										'position'						=> array(   'lat'			=> $node->getLatitude(),
 																					'long'			=> $node->getLongitude() ) );
 		
-		}		
+		}
+								
 	}
 	
 	
@@ -46,7 +47,7 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 	$response = array(	'version'			=> '1.0.0',
 						'updated_at'		=> $now->format('Y-m-d H:i:sP'),
 						'community'			=> array(	'name' 	=> ucfirst($community->getTheName()),
-														'href' 	=> $community->getHref() )	);
+														'href' 	=> $community->getURL() )	);
 	
 	$response['nodes'] = $nodesDataset;
 	
