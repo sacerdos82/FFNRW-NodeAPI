@@ -30,8 +30,8 @@ $api->get('/get/community/:communityID/format/ffapi', function($communityID) use
 	
 	$response['location'] = array(	'city'			=> ucfirst($community->getTheName()),
 									'country'		=> 'DE',
-									'lat'			=> $community->getLatitude(),
-									'lon'			=> $community->getLongitude() );
+									'lat'			=> floatval($community->getLatitude()),
+									'lon'			=> floatval($community->getLongitude()) );
 
 	$response['contact'] = array();
 	if($community->getEmail() != '') { $response['contact']['email'] = $community->getEmail(); }
@@ -39,14 +39,14 @@ $api->get('/get/community/:communityID/format/ffapi', function($communityID) use
 	if($community->getFacebook() != '') { $response['contact']['facebook'] = $community->getFacebook(); }
 	if($community->getTwitter() != '') { $response['contact']['twitter'] = $community->getTwitter(); }
 	
-	$response['state']['nodes'] = $community->getNodesCount();
+	$response['state']['nodes'] = intval($community->getNodesCount());
 	if($community->getDescription() != '') { $response['state']['description'] = $community->getDescription(); }
 	$response['state']['focus'] = array( 'Public Free Wifi', 'Social Community Building', 'Free internet access' );
 	$response['state']['lastchange'] = $now->format('Y-m-d H:i:sP');
 	
-	$response['nodeMaps'] = array(	array(	'url'	=> OPTION_NODEMAPBASE .'/'. $community->getLatitude() .','. $community->getLongitude() .',17',
+	$response['nodeMaps'] = array(	/* array(	'url'	=> OPTION_NODEMAPBASE .'/'. $community->getLatitude() .','. $community->getLongitude() .',17',
 											'technicalType'		=> 'batmap',
-											'mapType'			=> 'geographical' ),
+											'mapType'			=> 'geographical' ), */
 									array(	'url'				=> __URL__ .'/index.php/get/nodes/community/'. $community->getID() . '/format/netmon',
 											'technicalType'		=> 'nodelist',
 											'mapType'			=> 'list/status' ) );

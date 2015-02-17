@@ -31,7 +31,7 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 										'node_type'						=> 'AccessPoint',
 										'href'							=> OPTION_NODEHREFBASE . '/' . $node->getHWID(),
 										'status'						=> array(	'online'		=> $node->isActive(),
-																					'clients'		=> $node->getClientsCount(),
+																					'clients'		=> intval($node->getClientsCount()),
 																					'lastContact'	=> $node->getLastSeenWithTimezone() ),
 										'position'						=> array(   'lat'			=> $node->getLatitude(),
 																					'long'			=> $node->getLongitude() ) );
@@ -43,13 +43,13 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 	
 	$now = new DateTime(date('Y-m-d H:i:s'));
 	$now->SetTimezone(new DateTimeZone('Europe/Berlin'));
-
+	
 	if($community->getScreenname() != '') { $screenname = $community->getScreenname(); } else { $screenname = 'Freifunk '. ucfirst($community->getTheName()); }
-
+	
 	$response = array(	'version'			=> '1.0.0',
 						'updated_at'		=> $now->format('Y-m-d H:i:sP'),
 						'community'			=> array(	'name' 	=> $screenname,
-														'href' 	=> $community->getURL() )	);
+														'href' 	=> __URL__ .'/index.php/get/community/'. $community->getID() .'/format/ffapi' )	);
 	
 	$response['nodes'] = $nodesDataset;
 	
