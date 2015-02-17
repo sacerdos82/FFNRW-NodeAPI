@@ -8,7 +8,7 @@ $api->get('/get/node/:nodeID', function($nodeID) use ($api) {
 	
 	if(!$node->exists()) { 
 		
-		$errorMsg = returnError('E0003', 'API-Get-Community');
+		$errorMsg = returnError('E0003', 'API-Get-Node');
 		$response['error'] = true;
 		$response['code'] = $errorMsg['code'];
 		$response['message'] = $errorMsg['message'];

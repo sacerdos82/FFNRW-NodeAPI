@@ -4,6 +4,7 @@ require_once(__PATH__ . '/api/helper-checkRequiredFields.php');
 require_once(__PATH__ . '/api/helper-response.php');
 
 require_once(__PATH__ . '/api/route-get-node.php');
+require_once(__PATH__ . '/api/route-get-node-meshlinks.php');
 
 require_once(__PATH__ . '/api/route-get-nodes.php');
 require_once(__PATH__ . '/api/route-get-nodes-active.php');

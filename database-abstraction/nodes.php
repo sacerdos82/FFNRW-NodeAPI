@@ -94,12 +94,14 @@ class db_nodes {
 	public function getLastSeen()				{ return $this->lastSeen->format('Y-m-d H:i:s'); }
 	public function getLastSeenWithTimezone()	{ return $this->lastSeen->format('Y-m-d H:i:sP'); }
 	
+	
 	public function getCommunity() { 
 
 		$community = new db_communities($this->communityID);
 		return $community->getTheName(); 
 		
 	}
+	
 	
 	public function isActive() {
 		
@@ -108,8 +110,32 @@ class db_nodes {
 			
 			return true;
 			
-			
 		} else { return false; }
+		
+	}
+	
+	
+	public function getMeshlinks() {
+		
+		$meshlinks = array();
+		
+		$timestamp = time() - (OPTION_HOWLONGDOESAMESHLINKCOUNTINMINUTES * 60);
+		
+		$result = dbSQL('	SELECT '. TBL_MESHLINKS .'.to, '. TBL_MESHLINKS .'.tq, '. TBL_NODES .'.name 
+							FROM '. TBL_MESHLINKS .' 
+							LEFT JOIN '. TBL_NODES .' ON '. TBL_MESHLINKS .'.to = '. TBL_NODES .'.id  
+							WHERE '. TBL_MESHLINKS .'.from = "'. $this->ID .'" 
+							AND '. TBL_MESHLINKS .'.last > "'. $timestamp .'"');
+		
+		while($row = $result->fetch_object()) {
+			
+			$meshlinks[] = array(	'NodeID' 		=> $row->to,
+									'LinkQuality'	=> $row->tq,
+									'NodeName'		=> $row->name );
+			
+		}
+		
+		return $meshlinks;
 		
 	}
 		
