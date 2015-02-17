@@ -13,6 +13,7 @@ SLIM Framework (http://www.slimframework.com)
 ## Nutzbare Routen
 
 * /index.php/get/node/(nodeID)
+* /index.php/get/node/(nodeID)/meshlinks
 * /index.php/get/nodes
 * /index.php/get/nodes/active
 * /index.php/get/nodes/count
