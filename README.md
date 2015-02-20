@@ -29,6 +29,8 @@ SLIM Framework (http://www.slimframework.com)
 * /index.php/get/nodes/format/geojson
 * /index.php/get/nodes/active/format/geojson
 * /index.php/get/nodes/inactive/format/geojson
+* /index.php/get/nodes/active/meshlinks/format/geojson
 * /index.php/get/nodes/community/(communityID)/format/geojson
 * /index.php/get/nodes/community/(communityID)/active/format/geojson
 * /index.php/get/nodes/community/(communityID)/inactive/format/geojson
+* /index.php/get/nodes/community/(communityID)/active/meshlinks/format/geojson
