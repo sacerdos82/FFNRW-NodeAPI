@@ -10,6 +10,9 @@ require_once(__PATH__ . '/api/route-get-nodes.php');
 require_once(__PATH__ . '/api/route-get-nodes-active.php');
 require_once(__PATH__ . '/api/route-get-nodes-count.php');
 require_once(__PATH__ . '/api/route-get-nodes-count-active.php');
+require_once(__PATH__ . '/api/route-get-nodes-format-geojson.php');
+require_once(__PATH__ . '/api/route-get-nodes-active-format-geojson.php');
+require_once(__PATH__ . '/api/route-get-nodes-inactive-format-geojson.php');
 
 require_once(__PATH__ . '/api/route-get-community.php');
 require_once(__PATH__ . '/api/route-get-community-format-ffapi.php');
@@ -20,6 +23,9 @@ require_once(__PATH__ . '/api/route-get-nodes-community-active.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-count.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-count-active.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-format-netmon.php');
+require_once(__PATH__ . '/api/route-get-nodes-community-format-geojson.php');
+require_once(__PATH__ . '/api/route-get-nodes-community-active-format-geojson.php');
+require_once(__PATH__ . '/api/route-get-nodes-community-inactive-format-geojson.php');
 
 
 	
