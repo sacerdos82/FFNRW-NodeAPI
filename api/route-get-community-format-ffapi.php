@@ -52,7 +52,7 @@ $api->get('/get/community/:communityID/format/ffapi', function($communityID) use
 											'mapType'			=> 'list/status' ) );
 	
 	$response['techDetails']['firmware']['name'] = 'Lübecker Firmware (Pre-Gluon) / Gluon';
-	$response['techDetails']['routing'] = 'BATMAN';
+	$response['techDetails']['routing'] = array( 'batman-adv' );
 	$response['techDetails']['legals'] = array( 'vpnnational', 'vpninternational' );
 	
 	$response['api'] = '0.4.6';
