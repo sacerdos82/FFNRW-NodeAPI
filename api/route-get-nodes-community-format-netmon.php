@@ -26,7 +26,7 @@ $api->get('/get/nodes/community/:communityID/format/netmon', function($community
 
 		$node = new db_nodes($row->id);
 		
-		if(!$node->hideOnMap()) {
+		if(!$node->hideOnMap() && $node->getLatitude() != 0 && $node->getLongitude() != 0) {
 			
 			$nodesDataset[] = array(	'id'							=> $node->getID(),
 										'name'							=> $node->getTheName(),
