@@ -21,7 +21,9 @@ $api->get('/get/nodes/community/:communityID/format/geojson', function($communit
 	
 	$geoJSON['type'] = 'FeatureCollection';
 
-	$result = dbSQL('SELECT id FROM '. TBL_NODES .' WHERE community = "'. $community->getID() .'" ORDER BY id ASC');
+	$timestamp = time() - (OPTION_HIDENODEINGEODATAWHENOFFLINEFORDAYS * 86400);
+
+	$result = dbSQL('SELECT id FROM '. TBL_NODES .' WHERE community = "'. $community->getID() .'" AND lastseen > "'. $timestamp .'" ORDER BY id ASC');
 	while($row = $result->fetch_object()) {
 
 		$node = new db_nodes($row->id);

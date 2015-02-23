@@ -6,7 +6,9 @@ $api->get('/get/nodes/format/geojson', function() use ($api) {
 	
 	$geoJSON['type'] = 'FeatureCollection';
 
-	$result = dbSQL('SELECT id FROM '. TBL_NODES .' ORDER BY id ASC');
+	$timestamp = time() - (OPTION_HIDENODEINGEODATAWHENOFFLINEFORDAYS * 86400);
+
+	$result = dbSQL('SELECT id FROM '. TBL_NODES .' WHERE lastseen > "'. $timestamp .'" ORDER BY id ASC');
 	while($row = $result->fetch_object()) {
 
 		$node = new db_nodes($row->id);
