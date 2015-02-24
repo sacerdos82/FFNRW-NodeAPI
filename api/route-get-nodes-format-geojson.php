@@ -15,17 +15,7 @@ $api->get('/get/nodes/format/geojson', function() use ($api) {
 		
 		if(!$node->hideOnMap()) {
 			
-			$geoJSON['features'][] = 	array(	'type'			=> 'Feature',
-												'geometry'		=> 	array( 	'type'			=> 'Point',
-																			'coordinates'	=> 	array( 	floatval($node->getLongitude()), 
-																										floatval($node->getLatitude()) 
-																								) 
-																	),
-												'properties'	=> 	array(	'id'			=> $node->getID(),
-																			'name'			=> $node->getTheName(),
-																			'active'		=> $node->isActive()
-																	)
-										);		
+			$geoJSON['features'][] = $node->getGeoJSON();
 		
 		}						
 		

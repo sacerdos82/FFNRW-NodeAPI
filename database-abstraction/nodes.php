@@ -138,6 +138,31 @@ class db_nodes {
 		return $meshlinks;
 		
 	}
+	
+	
+	public function getGeoJSON() {
+		
+		$geoJSON =	array(	'type'			=> 'Feature',
+							'geometry'		=> 	array( 	'type'				=> 'Point',
+														'coordinates'		=> 	array( 	floatval($this->getLongitude()), 
+																						floatval($this->getLatitude()) 
+																						) 
+												),
+							'properties'	=> 	array(	'id'				=> $this->getID(),
+														'name'				=> $this->getTheName(),
+														'active'			=> $this->isActive(),
+														'lastSeen'			=> $this->getLastSeen(),
+														'firmwareBuild'		=> $this->getBuild(),
+														'clients'			=> $this->getClientsCount(),
+														'vpnActive'			=> $this->VPNActive(),
+														'gatewayQuality'	=> $this->getGatewayQuality(),
+														'ipv6'				=> $this->getIPV6()
+												)
+					);	
+					
+		return $geoJSON;	
+		
+	}
 		
 }
 	
