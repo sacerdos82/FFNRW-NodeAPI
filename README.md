@@ -25,6 +25,7 @@ SLIM Framework (http://www.slimframework.com)
 * /index.php/get/nodes/community/(communityID)/active
 * /index.php/get/nodes/community/(communityID)/count
 * /index.php/get/nodes/community/(communityID)/count/active
+* /index.php/get/nodes/community/(communityID)/format/netmon (Diese Route bitte nicht mehr benutzen. Die neue Route ist .../format/nodelist/)
 * /index.php/get/nodes/community/(communityID)/format/netmon
 * /index.php/get/nodes/format/geojson
 * /index.php/get/nodes/active/format/geojson

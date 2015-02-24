@@ -23,7 +23,8 @@ require_once(__PATH__ . '/api/route-get-nodes-community.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-active.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-count.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-count-active.php');
-require_once(__PATH__ . '/api/route-get-nodes-community-format-netmon.php');
+require_once(__PATH__ . '/api/route-get-nodes-community-format-netmon.php'); // Wird entfernt. Statt dessen .../format/nodelist verweden.
+require_once(__PATH__ . '/api/route-get-nodes-community-format-nodelist.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-format-geojson.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-active-format-geojson.php');
 require_once(__PATH__ . '/api/route-get-nodes-community-inactive-format-geojson.php');

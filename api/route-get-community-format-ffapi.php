@@ -47,7 +47,7 @@ $api->get('/get/community/:communityID/format/ffapi', function($communityID) use
 	$response['nodeMaps'] = array(	/* array(	'url'	=> OPTION_NODEMAPBASE .'/'. $community->getLatitude() .','. $community->getLongitude() .',17',
 											'technicalType'		=> 'batmap',
 											'mapType'			=> 'geographical' ), */
-									array(	'url'				=> __URL__ .'/index.php/get/nodes/community/'. $community->getID() . '/format/netmon',
+									array(	'url'				=> __URL__ .'/index.php/get/nodes/community/'. $community->getID() . '/format/nodelist',
 											'technicalType'		=> 'nodelist',
 											'mapType'			=> 'list/status' ) );
 	

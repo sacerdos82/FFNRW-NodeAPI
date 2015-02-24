@@ -1,8 +1,9 @@
 <?php
 	
-// Bitte nicht mehr verwenden. Wird entfernt. Neue Route ist .../format/nodelist.
+// Gibt zu .../format/netmon identische Werte aus. Die alte Route wird in einer der nächsten Versionen entfernt.
+// Bei der ersten Version der API gab es Missverständnis bei der Benennung.
 
-$api->get('/get/nodes/community/:communityID/format/netmon', function($communityID) use ($api) {
+$api->get('/get/nodes/community/:communityID/format/nodelist', function($communityID) use ($api) {
 
 	$community = new db_communities($communityID);
 	
