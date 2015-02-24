@@ -87,7 +87,7 @@ class db_nodes {
 	public function getHWID()					{ return $this->hwid; }
 	public function getIPV6()					{ return $this->ipv6; }
 	public function getBuild()					{ return $this->build; }
-	public function getClientsCount()			{ return $this->clients; }
+	public function getClientsCount()			{ if($this->isActive()) { return $this->clients; } else { return '0'; } }
 	public function VPNActive()					{ if($this->VPNActive == '1') { return true; } else { return false; } }
 	public function getGatewayQuality()			{ return $this->gatewayQuality; }
 	
