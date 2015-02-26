@@ -35,3 +35,4 @@ SLIM Framework (http://www.slimframework.com)
 * /index.php/get/nodes/community/(communityID)/active/format/geojson
 * /index.php/get/nodes/community/(communityID)/inactive/format/geojson
 * /index.php/get/nodes/community/(communityID)/active/meshlinks/format/geojson
+* /index.php/get/clients/count
