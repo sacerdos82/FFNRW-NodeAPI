@@ -149,6 +149,7 @@ class db_nodes {
 																						) 
 												),
 							'properties'	=> 	array(	'id'				=> $this->getID(),
+														'hwid'				=> $this->getHWID(),
 														'name'				=> $this->getTheName(),
 														'active'			=> $this->isActive(),
 														'lastSeen'			=> $this->getLastSeen(),
