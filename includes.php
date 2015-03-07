@@ -8,6 +8,7 @@ require_once(__PATH__ . '/tools-external/Slim/Slim.php');
 require_once(__PATH__ . '/tools-internal/logToFile.php');
 require_once(__PATH__ . '/tools-internal/cleanInputFromCode.php');
 require_once(__PATH__ . '/tools-internal/isValidEmail.php');
+require_once(__PATH__ . '/tools-internal/isValidURL.php');
 require_once(__PATH__ . '/tools-internal/randomString.php');
 require_once(__PATH__ . '/tools-internal/isOdd-isEven.php');
 require_once(__PATH__ . '/tools-internal/isValidDate.php');

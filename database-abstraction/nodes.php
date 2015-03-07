@@ -16,6 +16,7 @@ class db_nodes {
 	private $VPNActive;
 	private $gatewayQuality;
 	private $lastSeen;
+	private $additionalInformation;
 		
 	
 	// Variablen die keine Entsprechung in der Datenbank haben
@@ -41,7 +42,8 @@ class db_nodes {
 									clients,
 									vpnactive,
 									gwq,
-									lastseen FROM '. TBL_NODES .' WHERE ID = [u] "'. $ID . '" [u]', 'ALL');				
+									lastseen,
+									additional_information FROM '. TBL_NODES .' WHERE ID = [u] "'. $ID . '" [u]', 'ALL');				
 			
 			
 			// Fehlermeldung, wenn keine Abfrage zustande kam
@@ -62,6 +64,7 @@ class db_nodes {
 			$this->clients					= $row->clients;
 			$this->VPNActive				= $row->vpnactive;
 			$this->gatewayQuality			= $row->gwq;
+			$this->additionalInformation	= $row->additional_information;
 			
 			$this->lastSeen	= new DateTime();
 			$this->lastSeen->SetTimezone(new DateTimeZone('Europe/Berlin'));
@@ -162,6 +165,157 @@ class db_nodes {
 					);	
 					
 		return $geoJSON;	
+		
+	}
+	
+	
+	public function getAdditionalInformation() {
+		
+		// Prüfen ob Zusatzinformationen hinterlegt sind und ob es sich um eine URL handelt
+		if($this->additionalInformation == NULL || $this->additionalInformation == '') { return false; }
+		if(!isValidURL($this->additionalInformation)) { return false; }
+		$fileheaders = @get_headers($this->additionalInformation); if($fileheaders[0] == 'HTTP/1.1 404 Not Found') { return false; }
+		
+		
+		// Prüfen ob die hinterlegte Datei JSON-Code enthält und Inhalt einlesen
+		if(!$additionalInformation = decodeJSONandValidate(file_get_contents($this->additionalInformation), true)) { return false; }
+		
+		// Prüfen ob die hinterlegte ID und HWID übereinstimmen
+		if( !array_key_exists('ID', $additionalInformation) || !array_key_exists('HWID', $additionalInformation) ) { return false; } 		
+		if($additionalInformation['ID'] != $this->ID || $additionalInformation['HWID'] != $this->hwid) { return false; }
+		
+		// Ausgabearray aufbauen
+		$output = array();
+		
+		$lastModified = new DateTime();
+		$lastModified->SetTimezone(new DateTimeZone('Europe/Berlin'));
+		$lastModifiedTimestamp = strtotime(substr($fileheaders[3], 15));
+		$lastModified->SetTimestamp($lastModifiedTimestamp);
+		$output['LastModified'] = $lastModified->format('Y-m-d H:i:s');
+		
+		if(array_key_exists('Owner', $additionalInformation)) 			{ $output['Owner'] = cleanInputFromCode($additionalInformation['Owner']); } 				else { $output['Owner'] = ''; }
+		if(array_key_exists('Street', $additionalInformation)) 			{ $output['Street'] = cleanInputFromCode($additionalInformation['Street']); } 				else { $output['Street'] = ''; }
+		if(array_key_exists('Zip', $additionalInformation)) 			{ $output['Zip'] = cleanInputFromCode($additionalInformation['Zip']); } 					else { $output['Zip'] = ''; }
+		if(array_key_exists('City', $additionalInformation)) 			{ $output['City'] = cleanInputFromCode($additionalInformation['City']); } 					else { $output['City'] = ''; }
+		if(array_key_exists('Phone', $additionalInformation)) 			{ $output['Phone'] = cleanInputFromCode($additionalInformation['Phone']); } 				else { $output['Phone'] = ''; }
+		if(array_key_exists('Email', $additionalInformation)) 			{ $output['Email'] = cleanInputFromCode($additionalInformation['Email']); } 				else { $output['Email'] = ''; }
+																																									
+		if(array_key_exists('Website', $additionalInformation) 																										
+			&& isValidURL($additionalInformation['Website']))			{ $output['Website'] = $additionalInformation['Website']; } 								else { $output['Website'] = ''; }
+		
+		if(array_key_exists('OpeningHours', $additionalInformation)) { 
+			
+			if(array_key_exists('Monday', $additionalInformation['OpeningHours'])) 			{ $output['OpeningHours']['Monday'] = cleanInputFromCode($additionalInformation['OpeningHours']['Monday']); } 			else { $output['OpeningHours']['Monday'] = ''; }
+			if(array_key_exists('Tuesday', $additionalInformation['OpeningHours'])) 		{ $output['OpeningHours']['Tuesday'] = cleanInputFromCode($additionalInformation['OpeningHours']['Tuesday']); } 		else { $output['OpeningHours']['Tuesday'] = ''; }
+			if(array_key_exists('Wednesday', $additionalInformation['OpeningHours'])) 		{ $output['OpeningHours']['Wednesday'] = cleanInputFromCode($additionalInformation['OpeningHours']['Wednesday']); } 	else { $output['OpeningHours']['Wednesday'] = ''; }
+			if(array_key_exists('Thursday', $additionalInformation['OpeningHours'])) 		{ $output['OpeningHours']['Thursday'] = cleanInputFromCode($additionalInformation['OpeningHours']['Thursday']); } 		else { $output['OpeningHours']['Thursday'] = ''; }
+			if(array_key_exists('Friday', $additionalInformation['OpeningHours'])) 			{ $output['OpeningHours']['Friday'] = cleanInputFromCode($additionalInformation['OpeningHours']['Friday']); } 			else { $output['OpeningHours']['Friday'] = ''; }
+			if(array_key_exists('Saturday', $additionalInformation['OpeningHours'])) 		{ $output['OpeningHours']['Saturday'] = cleanInputFromCode($additionalInformation['OpeningHours']['Saturday']); } 		else { $output['OpeningHours']['Saturday'] = ''; }
+			if(array_key_exists('Sunday', $additionalInformation['OpeningHours'])) 			{ $output['OpeningHours']['Sunday'] = cleanInputFromCode($additionalInformation['OpeningHours']['Sunday']); } 			else { $output['OpeningHours']['Monday'] = ''; }
+			
+		} else { 
+			
+			$output['OpeningHours']['Monday'] = '';
+			$output['OpeningHours']['Tuesday'] = '';
+			$output['OpeningHours']['Wednesday'] = '';
+			$output['OpeningHours']['Thursday'] = '';
+			$output['OpeningHours']['Friday'] = '';
+			$output['OpeningHours']['Saturday'] = '';
+			$output['OpeningHours']['Sunday'] = '';
+			
+		}
+		
+		if(array_key_exists('Description', $additionalInformation)) 	{ $output['Description'] = cleanInputFromCode($additionalInformation['Description']); } 	else { $output['Description'] = ''; }
+		
+		if(array_key_exists('LogoURL', $additionalInformation) && isValidURL($additionalInformation['LogoURL'])) { 
+			
+			$imageheaders = @get_headers($additionalInformation['LogoURL']);
+			if($imageheaders[0] != 'HTTP/1.1 404 Not Found') {
+				
+				$imagetest = @getimagesize($additionalInformation['LogoURL']); 
+				if(!$imagetest) { $output['LogoURL'] = ''; } else { $output['LogoURL'] = $additionalInformation['LogoURL']; }
+			
+			} else { $output['LogoURL'] = ''; }
+		
+		} else { $output['LogoURL'] = ''; }
+		
+		if(array_key_exists('News', $additionalInformation) && is_array($additionalInformation['News'])) {
+			
+			$output['News'] = array(); 
+			foreach($additionalInformation['News'] as $news) {
+			
+				if(array_key_exists('Date', $news) && array_key_exists('Headline', $news) && array_key_exists('Description', $news)) { 
+				
+					$output['News'][] = array(	'Date'			=> cleanInputFromCode($news['Date']),
+												'Headline'		=> cleanInputFromCode($news['Headline']),
+												'Description'	=> cleanInputFromCode($news['Description'])
+										);
+										
+				}
+				
+			}
+			
+		} else { $output['News'] = array(); } 
+		
+		$output['Disclaimer'] = 'Diese Informationen werden vom Eigner des Knotens '. $this->ID .' auf dessen eigenen Servern zur Verfügung gestellt. '.
+								'Der Verbund freier Netzwerke NRW e.V. liefert diese Informationen nur aus und ist nicht für deren Inhalt verantwortlich. '. 
+								'Verantwortlich für den Inhalt sind ausschließlich der Eigner des Knotens, sowie der Inhaber/Betreiber des Servers, der diese Informationen zur Verfügung stellt. '.
+								'Unter dem Punkt "Origin" wird die Orignal-URL der dieser Ausgabe zugrunde liegenden JSON Datei genannt.';
+								
+		$output['Origin'] = $this->additionalInformation;
+			
+		return $output;
+		
+	}
+	
+	
+	public function getClientStatistics($option = 'day') {
+		
+		$end = time();
+		
+		switch($option) {
+			
+			case 'day': 		$start = time() - 86400; 			break;
+			case 'week':		$start = time() - (7 * 86400); 		break;
+			case 'month':		$start = time() - (30 * 86400); 	break;
+			
+			default: 			$start = time() - 86400; 			break;
+			
+		}
+		
+		$result = 	rrd_fetch( RRD_BASEDIR . '/clients/'. $this->getHWID() .'.rrd', 
+						array( 	'AVERAGE', 
+								'--resolution', '1200',
+								'--start', $start, 
+								'--end', $end 
+						) 
+					);
+					
+					
+		$output = array();
+		
+		//var_dump($result);
+		
+		$output['start'] = date('Y-m-d H:i:s', $result['start']);
+		$output['end'] = date('Y-m-d H:i:s', $result['end']);
+		
+		$i = 0;
+		$total = 0;
+		foreach($result['data']['clients'] as $index => $value) {
+			
+			$output['steps'][$i]['time'] = date('Y-m-d H:i:s', $index);
+			
+			if(is_nan($value)) { $count = 0; } else { $count = intval($value); }
+			$output['steps'][$i]['count'] = $count;
+			
+			$total = $total + $count;
+			$i++;
+			
+		}
+		
+		$output['total'] = $total;
+		
+		return $output;
 		
 	}
 		

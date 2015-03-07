@@ -14,6 +14,7 @@ SLIM Framework (http://www.slimframework.com)
 
 * /index.php/get/node/(nodeID)
 * /index.php/get/node/(nodeID)/meshlinks
+* /index.php/get/node/(nodeID)/additionalInformation
 * /index.php/get/nodes
 * /index.php/get/nodes/active
 * /index.php/get/nodes/count
