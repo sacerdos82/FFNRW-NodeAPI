@@ -6,6 +6,7 @@ define('MYSQL_USER',		'');
 define('MYSQL_PASSWORD',	'');
 define('MYSQL_DATABASE',	'');
 
+define('RRD_BASEDIR',		''); // Immer ohne schließendes "/"
 
 // SLIM REST Framework
 \Slim\Slim::registerAutoloader();
