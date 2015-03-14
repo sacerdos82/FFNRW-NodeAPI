@@ -31,7 +31,7 @@ $api->get('/get/nodes/community/:communityID/active/meshlinks/format/geojson', f
 			
 			$meshnode = new db_nodes($meshlink['NodeID']);
 		
-			if(!$meshnode->hideOnMap()) {
+			if(!$meshnode->hideOnMap() && $meshnode->isActive()) {
 				
 				$geoJSON['features'][] = 	array(	'type'			=> 'Feature',
 													'geometry'		=> 	array( 	'type'			=> 'LineString',
