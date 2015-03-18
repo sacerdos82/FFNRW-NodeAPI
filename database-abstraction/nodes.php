@@ -71,8 +71,7 @@ class db_nodes {
 			$this->lastSeen->SetTimezone(new DateTimeZone('Europe/Berlin'));
 			$this->lastSeen->SetTimestamp($row->lastseen);
 			
-			$difference = timespan(time() - $row->lastseen);
-			$this->lastSeenDifference = $difference['d'] .' Tage, '. $difference['h'] .' Stunden, '. $difference['m'] .' Minuten, '. $difference['s'] .' Sekunden';
+			$this->lastSeenDifference = timespan(time() - $row->lastseen);
 	
 		}
 		
@@ -109,7 +108,20 @@ class db_nodes {
 	
 	public function getLastSeen()				{ return $this->lastSeen->format('Y-m-d H:i:s'); }
 	public function getLastSeenWithTimezone()	{ return $this->lastSeen->format('Y-m-d H:i:sP'); }
-	public function getLastSeenDifference()		{ return $this->lastSeenDifference; }
+	
+	public function getLastSeenDifference()	{ 
+	
+		$output = '';
+		
+		if($this->lastSeenDifference['d'] > 0) { $output .= $this->lastSeenDifference['d'] . ' Tage, '; }
+		if($this->lastSeenDifference['h'] > 0) { $output .= $this->lastSeenDifference['h'] . ' Stunden, '; }
+		if($this->lastSeenDifference['m'] > 0) { $output .= $this->lastSeenDifference['m'] . ' Minuten, '; }
+
+		$output .= $this->lastSeenDifference['s'] . ' Sekunden';
+		
+		return $output; 
+		
+	}
 	
 	public function getCommunity() { 
 
