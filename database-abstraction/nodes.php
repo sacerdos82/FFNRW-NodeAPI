@@ -86,7 +86,15 @@ class db_nodes {
 	public function getHardwareType()			{ return $this->hardwareType; }
 	public function getLatitude()				{ return $this->latitude; }
 	public function getLongitude()				{ return $this->longitude; }
-	public function hideOnMap()					{ if($this->hideOnMap == '1') { return true; } else { return false; } }
+	
+	public function hideOnMap()	{ 
+		
+		if($this->hideOnMap == '1') { return true; } 
+		elseif($this->latitude == 0 && $this->longitude == 0) { return true; } 
+		else { return false; }	
+	
+	}
+	
 	public function getHWID()					{ return $this->hwid; }
 	public function getIPV6()					{ return $this->ipv6; }
 	public function getBuild()					{ return $this->build; }
