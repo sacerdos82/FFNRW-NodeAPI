@@ -189,17 +189,18 @@ class db_nodes {
 																						floatval($this->getLatitude()) 
 																						) 
 												),
-							'properties'	=> 	array(	'id'				=> $this->getID(),
-														'hwid'				=> $this->getHWID(),
-														'name'				=> $this->getTheName(),
-														'active'			=> $this->isActive(),
-														'lastSeen'			=> $this->getLastSeen(),
-														'firmwareBuild'		=> $this->getBuild(),
-														'clients'			=> $this->getClientsCount(),
-														'vpnActive'			=> $this->VPNActive(),
-														'gatewayQuality'	=> $this->getGatewayQuality(),
-														'ipv6'				=> $this->getIPV6()
-												)
+							'properties'	=> 	array(	'id'					=> $this->getID(),
+														'hwid'					=> $this->getHWID(),
+														'name'					=> $this->getTheName(),
+														'active'				=> $this->isActive(),
+														'lastSeen'				=> $this->getLastSeen(),
+														'lastSeenDifference'	=> $this->getLastSeenDifference(),
+														'firmwareBuild'			=> $this->getBuild(),
+														'clients'				=> $this->getClientsCount(),
+														'vpnActive'				=> $this->VPNActive(),
+														'gatewayQuality'		=> $this->getGatewayQuality(),
+														'ipv6'					=> $this->getIPV6()
+												)								
 					);	
 					
 		return $geoJSON;	
