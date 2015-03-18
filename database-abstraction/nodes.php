@@ -16,6 +16,7 @@ class db_nodes {
 	private $VPNActive;
 	private $gatewayQuality;
 	private $lastSeen;
+	private $lastSeenDifference;
 	private $additionalInformation;
 		
 	
@@ -69,6 +70,9 @@ class db_nodes {
 			$this->lastSeen	= new DateTime();
 			$this->lastSeen->SetTimezone(new DateTimeZone('Europe/Berlin'));
 			$this->lastSeen->SetTimestamp($row->lastseen);
+			
+			$difference = timespan(time() - $row->lastseen);
+			$this->lastSeenDifference = $difference['d'] .' Tage, '. $difference['h'] .' Stunden, '. $difference['m'] .' Minuten, '. $difference['s'] .' Sekunden';
 	
 		}
 		
@@ -95,6 +99,7 @@ class db_nodes {
 	
 	}
 	
+	public function hideOnMapRAW() 				{ if($this->hideOnMap == '1') { return true; } else { return false; } }
 	public function getHWID()					{ return $this->hwid; }
 	public function getIPV6()					{ return $this->ipv6; }
 	public function getBuild()					{ return $this->build; }
@@ -104,7 +109,7 @@ class db_nodes {
 	
 	public function getLastSeen()				{ return $this->lastSeen->format('Y-m-d H:i:s'); }
 	public function getLastSeenWithTimezone()	{ return $this->lastSeen->format('Y-m-d H:i:sP'); }
-	
+	public function getLastSeenDifference()		{ return $this->lastSeenDifference; }
 	
 	public function getCommunity() { 
 
@@ -147,6 +152,31 @@ class db_nodes {
 		}
 		
 		return $meshlinks;
+		
+	}
+	
+	
+	public function getDataset() {
+		
+		$nodeDataset = array(	'ID'							=> $this->getID(),
+								'CommunityID'					=> $this->getCommunityID(),
+								'Name'							=> $this->getTheName(),
+								'HardwareType'					=> $this->getHardwareType(),
+								'Latitude'						=> $this->getLatitude(),
+								'Longitude'						=> $this->getLongitude(),
+								'HideOnMap'						=> $this->hideOnMap(),
+								'HideOnMapRAW'					=> $this->hideOnMapRAW(),
+								'HWID'							=> $this->getHWID(),
+								'IPV6'							=> $this->getIPV6(),
+								'Build'							=> $this->getBuild(),
+								'ClientsCount'					=> $this->getClientsCount(),
+								'VPNActive'						=> $this->VPNActive(),
+								'GatewayQuality'				=> $this->getGatewayQuality(),
+								'LastSeen'						=> $this->getLastSeen(),
+								'LastSeenWithTimezone'			=> $this->getLastSeenWithTimezone(),
+								'LastSeenDifference'			=> $this->getLastSeenDifference() );
+								
+		return $nodeDataset;
 		
 	}
 	

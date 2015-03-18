@@ -10,21 +10,7 @@ $api->get('/get/nodes/active', function() use ($api) {
 
 		$node = new db_nodes($row->id);
 				
-		$nodesDataset[] = array(	'ID'							=> $node->getID(),
-									'CommunityID'					=> $node->getCommunityID(),
-									'Name'							=> $node->getTheName(),
-									'HardwareType'					=> $node->getHardwareType(),
-									'Latitude'						=> $node->getLatitude(),
-									'Longitude'						=> $node->getLongitude(),
-									'HideOnMap'						=> $node->hideOnMap(),
-									'HWID'							=> $node->getHWID(),
-									'IPV6'							=> $node->getIPV6(),
-									'Build'							=> $node->getBuild(),
-									'ClientsCount'					=> $node->getClientsCount(),
-									'VPNActive'						=> $node->VPNActive(),
-									'GatewayQuality'				=> $node->getGatewayQuality(),
-									'LastSeen'						=> $node->getLastSeen(),
-									'LastSeenWithTimezone'			=> $node->getLastSeenWithTimezone() );
+		$nodesDataset[] = $node->getDataset();
 								
 	}
 	

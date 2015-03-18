@@ -19,23 +19,8 @@ $api->get('/get/node/:nodeID', function($nodeID) use ($api) {
 	}
 	
 	
-	$nodeDataset = array(	'ID'							=> $node->getID(),
-							'CommunityID'					=> $node->getCommunityID(),
-							'Community'						=> $node->getCommunity(),
-							'Name'							=> $node->getTheName(),
-							'HardwareType'					=> $node->getHardwareType(),
-							'Latitude'						=> $node->getLatitude(),
-							'Longitude'						=> $node->getLongitude(),
-							'HideOnMap'						=> $node->hideOnMap(),
-							'HWID'							=> $node->getHWID(),
-							'IPV6'							=> $node->getIPV6(),
-							'Build'							=> $node->getBuild(),
-							'ClientsCount'					=> $node->getClientsCount(),
-							'VPNActive'						=> $node->VPNActive(),
-							'GatewayQuality'				=> $node->getGatewayQuality(),
-							'LastSeen'						=> $node->getLastSeen(),
-							'LastSeenWithTimezone'			=> $node->getLastSeenWithTimezone() );
-	
+	$nodeDataset = $node->getDataset();
+		
 	
 	if(isset($_SESSION['errors'])) {
 		

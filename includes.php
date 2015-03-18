@@ -13,6 +13,7 @@ require_once(__PATH__ . '/tools-internal/randomString.php');
 require_once(__PATH__ . '/tools-internal/isOdd-isEven.php');
 require_once(__PATH__ . '/tools-internal/isValidDate.php');
 require_once(__PATH__ . '/tools-internal/decodeJSONandValidate.php');
+require_once(__PATH__ . '/tools-internal/timespan.php');
 
 
 // Datenbank
