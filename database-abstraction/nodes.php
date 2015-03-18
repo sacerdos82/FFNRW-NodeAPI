@@ -172,6 +172,7 @@ class db_nodes {
 		
 		$nodeDataset = array(	'ID'							=> $this->getID(),
 								'CommunityID'					=> $this->getCommunityID(),
+								'Community'						=> $this->getCommunity(),
 								'Name'							=> $this->getTheName(),
 								'HardwareType'					=> $this->getHardwareType(),
 								'Latitude'						=> $this->getLatitude(),
