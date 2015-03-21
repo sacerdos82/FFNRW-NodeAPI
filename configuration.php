@@ -26,6 +26,7 @@ $api->setName('vfn-nrw:node_api');
 define('OPTION_LOGFILE',								true);
 define('OPTION_WHATMEANSACTIVEINMINUTES', 				10);
 define('OPTION_HOWLONGDOESAMESHLINKCOUNTINMINUTES',		10);
+define('OPTION_WHATMEANSNEWINDAYS',						14);
 define('OPTION_HIDENODEINGEODATAWHENOFFLINEFORDAYS',	30);
 define('OPTION_NODEHREFBASE', 							'https://freifunk.liztv.net/nodes'); // immer ohne schließendes "/"
 define('OPTION_NODEMAPBASE',							'https://freifunk.liztv.net/batmap'); // immer ohne schießendes "/"
