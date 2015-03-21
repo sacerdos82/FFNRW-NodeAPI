@@ -1,6 +1,6 @@
 <?php
 
-$api->get('/get/nodes/active/format/geojson', function() use ($api) {
+$api->get('/get/nodes/new/format/geojson', function() use ($api) {
 
 	$geoJSON = array();
 	
