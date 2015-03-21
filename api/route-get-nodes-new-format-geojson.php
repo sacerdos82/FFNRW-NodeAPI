@@ -7,7 +7,7 @@ $api->get('/get/nodes/new/format/geojson', function() use ($api) {
 	$geoJSON['type'] = 'FeatureCollection';
 
 	$timestamp = time() - (OPTION_WHATMEANSNEWINDAYS * 86400);
-	$result = dbSQL('SELECT id FROM '. TBL_NODES .' WHERE firstseen < "'. $timestamp .'" ORDER BY id ASC');
+	$result = dbSQL('SELECT id FROM '. TBL_NODES .' WHERE firstseen > "'. $timestamp .'" AND firstseen != "0" ORDER BY id ASC');
 	while($row = $result->fetch_object()) {
 
 		$node = new db_nodes($row->id);
