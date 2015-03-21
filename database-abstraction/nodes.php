@@ -208,6 +208,7 @@ class db_nodes {
 														'active'				=> $this->isActive(),
 														'lastSeen'				=> $this->getLastSeen(),
 														'lastSeenDifference'	=> $this->getLastSeenDifference(),
+														'lastSeenDays'			=> $this->lastSeenDifference['d'],
 														'firmwareBuild'			=> $this->getBuild(),
 														'clients'				=> $this->getClientsCount(),
 														'vpnActive'				=> $this->VPNActive(),
