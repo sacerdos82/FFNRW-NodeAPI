@@ -17,6 +17,7 @@ require_once(__PATH__ . '/api/route-get-nodes-active-format-geojson.php');
 require_once(__PATH__ . '/api/route-get-nodes-inactive-format-geojson.php');
 require_once(__PATH__ . '/api/route-get-nodes-active-meshlinks-format-geojson.php');
 require_once(__PATH__ . '/api/route-get-nodes-new-format-geojson.php');
+require_once(__PATH__ . '/api/route-get-nodes-lost-format-geojson.php');
 
 require_once(__PATH__ . '/api/route-get-community.php');
 require_once(__PATH__ . '/api/route-get-community-format-ffapi.php');
