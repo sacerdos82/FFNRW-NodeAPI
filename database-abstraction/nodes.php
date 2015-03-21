@@ -221,6 +221,47 @@ class db_nodes {
 	}
 	
 	
+	public function getMeshlinksGeoJSON() {
+		
+		$geoJSON = array();
+		
+		foreach($this->getMeshlinks() as $meshlink) {
+			
+			$meshnode = new db_nodes($meshlink['NodeID']);
+			
+			$lengthInMeters = measureFromCoordinates(floatval($this->getLongitude()), floatval($this->getLatitude()), floatval($meshnode->getLongitude()), floatval($meshnode->getLatitude()));
+		
+			if(!$meshnode->hideOnMap() && $meshnode->isActive()) {
+		
+				$geoJSON[] = 	array(	'type'			=> 'Feature',
+										'geometry'		=> 	array( 	'type'			=> 'LineString',
+																	'coordinates'	=> 	array( 
+																							array( 	floatval($this->getLongitude()), 
+																									floatval($this->getLatitude()) 
+																							),
+																							array(  floatval($meshnode->getLongitude()), 
+																									floatval($meshnode->getLatitude()) 
+																							)
+																						)
+															),
+										'properties'	=> 	array(	'FromID'			=> $this->getID(),
+																	'FromName'			=> $this->getTheName(),
+																	'ToID'				=> $meshnode->getID(),
+																	'ToName'			=> $meshnode->getTheName(),
+																	'linkQuality'		=> $meshlink['LinkQuality'],
+																	'lengthInMeters'	=> $lengthInMeters
+															)
+								);
+							
+			}
+			
+		}
+		
+		return $geoJSON;
+		
+	}
+	
+	
 	public function getAdditionalInformation() {
 		
 		// Prüfen ob Zusatzinformationen hinterlegt sind und ob es sich um eine URL handelt

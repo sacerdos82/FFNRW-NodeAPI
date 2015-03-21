@@ -11,35 +11,7 @@ $api->get('/get/nodes/active/meshlinks/format/geojson/', function() use ($api) {
 	while($row = $result->fetch_object()) {
 
 		$node = new db_nodes($row->id);
-		
-		foreach($node->getMeshlinks() as $meshlink) {
-			
-			$meshnode = new db_nodes($meshlink['NodeID']);
-		
-			if(!$meshnode->hideOnMap() && $meshnode->isActive()) {
-				
-				$geoJSON['features'][] = 	array(	'type'			=> 'Feature',
-													'geometry'		=> 	array( 	'type'			=> 'LineString',
-																				'coordinates'	=> 	array( 
-																										array( 	floatval($node->getLongitude()), 
-																												floatval($node->getLatitude()) 
-																										),
-																										array(  floatval($meshnode->getLongitude()), 
-																												floatval($meshnode->getLatitude()) 
-																										)
-																									)
-																		),
-													'properties'	=> 	array(	'FromID'		=> $node->getID(),
-																				'FromName'		=> $node->getTheName(),
-																				'ToID'			=> $meshnode->getID(),
-																				'ToName'		=> $meshnode->getTheName(),
-																				'linkQuality'	=> $meshlink['LinkQuality']
-																		)
-											);		
-			
-			}						
-			
-		}
+		$geoJSON['features'][] = $node->getMeshlinksGeoJSON();
 		
 	}
 	
