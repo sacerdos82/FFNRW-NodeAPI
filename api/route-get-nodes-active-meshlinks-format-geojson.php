@@ -31,9 +31,10 @@ $api->get('/get/nodes/active/meshlinks/format/geojson/', function() use ($api) {
 																										)
 																									)
 																		),
-													'properties'	=> 	array(	'id'				=> $meshnode->getID(),
-																				'name'				=> $meshnode->getTheName(),
-																				'active'			=> $meshnode->isActive(),
+													'properties'	=> 	array(	'FromID'			=> $node->getID(),
+																				'FromName'			=> $node->getTheName(),
+																				'ToID'				=> $meshnode->getID(),
+																				'ToName'			=> $meshnode->getTheName(),
 																				'linkQuality'		=> $meshlink['LinkQuality'],
 																				'lengthInMeters'	=> $lengthInMeters
 																		)
