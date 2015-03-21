@@ -26,7 +26,38 @@ $api->get('/get/nodes/community/:communityID/active/meshlinks/format/geojson', f
 	while($row = $result->fetch_object()) {
 
 		$node = new db_nodes($row->id);
-		$geoJSON['features'][] = $node->getMeshlinksGeoJSON();
+		
+		foreach($node->getMeshlinks() as $meshlink) {
+			
+			$meshnode = new db_nodes($meshlink['NodeID']);
+		
+			$lengthInMeters = measureFromCoordinates(floatval($node->getLongitude()), floatval($node->getLatitude()), floatval($meshnode->getLongitude()), floatval($meshnode->getLatitude()));
+		
+			if(!$meshnode->hideOnMap() && $meshnode->isActive()) {
+				
+				$geoJSON['features'][] = 	array(	'type'			=> 'Feature',
+													'geometry'		=> 	array( 	'type'			=> 'LineString',
+																				'coordinates'	=> 	array( 
+																										array( 	floatval($node->getLongitude()), 
+																												floatval($node->getLatitude()) 
+																										),
+																										array(  floatval($meshnode->getLongitude()), 
+																												floatval($meshnode->getLatitude()) 
+																										)
+																									)
+																		),
+													'properties'	=> 	array(	'id'				=> $meshnode->getID(),
+																				'name'				=> $meshnode->getTheName(),
+																				'active'			=> $meshnode->isActive(),
+																				'linkQuality'		=> $meshlink['LinkQuality'],
+																				'lengthInMeters'	=> $lengthInMeters
+																		)
+											);		
+			
+			}						
+			
+		}
+
 		
 	}
 	
