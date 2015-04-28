@@ -35,5 +35,6 @@ require_once(__PATH__ . '/api/route-get-nodes-community-inactive-format-geojson.
 require_once(__PATH__ . '/api/route-get-nodes-community-active-meshlinks-format-geojson.php');
 
 require_once(__PATH__ . '/api/route-get-clients-count.php');
+require_once(__PATH__ . '/api/route-get-clients-communtiy-count.php');
 	
 ?>
