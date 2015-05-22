@@ -8,6 +8,7 @@ require_once(__PATH__ . '/api/route-get-node-meshlinks.php');
 require_once(__PATH__ . '/api/route-get-node-additionalInformation.php');
 require_once(__PATH__ . '/api/route-get-node-statistics-clients.php');
 require_once(__PATH__ . '/api/route-get-node-byHWID-activated.php');
+require_once(__PATH__ . '/api/route-get-node-byFastD-activated.php');
 
 require_once(__PATH__ . '/api/route-get-nodes.php');
 require_once(__PATH__ . '/api/route-get-nodes-active.php');
