@@ -18,6 +18,12 @@ class db_nodes {
 	private $lastSeen;
 	private $lastSeenDifference;
 	private $additionalInformation;
+	private $gluon_name;
+	private $gluon_lat;
+	private $gloun_lon;
+	private $gluon_contact;
+	private $community_txt;
+	private $activated;
 		
 	
 	// Variablen die keine Entsprechung in der Datenbank haben
@@ -44,7 +50,13 @@ class db_nodes {
 									vpnactive,
 									gwq,
 									lastseen,
-									additional_information FROM '. TBL_NODES .' WHERE ID = [u] "'. $ID . '" [u]', 'ALL');				
+									additional_information,
+									gluon_name,
+									gluon_lat,
+									gluon_lon,
+									gluon_contact,
+									community_txt,
+									activated FROM '. TBL_NODES .' WHERE ID = [u] "'. $ID . '" [u]', 'ALL');				
 			
 			
 			// Fehlermeldung, wenn keine Abfrage zustande kam
@@ -66,6 +78,12 @@ class db_nodes {
 			$this->VPNActive				= $row->vpnactive;
 			$this->gatewayQuality			= $row->gwq;
 			$this->additionalInformation	= $row->additional_information;
+			$this->gluon_name				= $row->gluon_name;
+			$this->gluon_lat				= $row->gluon_lat;
+			$this->gluon_lon				= $row->gluon_lon;
+			$this->gluon_contact			= $row->gluon_contact;
+			$this->community_txt			= $row->community_txt;
+			$this->activated				= $row->activated;
 			
 			$this->lastSeen	= new DateTime();
 			$this->lastSeen->SetTimezone(new DateTimeZone('Europe/Berlin'));
@@ -85,15 +103,34 @@ class db_nodes {
 	// Variablen auslesen
 	public function getID() 					{ return $this->ID; }
 	public function getCommunityID() 			{ return $this->communityID; }
-	public function getTheName()				{ return $this->name; }
+
+	public function getTheName() { 
+		
+		if($this->name == '' || $this->name == NULL) { return $this->gluon_name; }
+			else { return $this->name; }
+		
+	}
+	
 	public function getHardwareType()			{ return $this->hardwareType; }
-	public function getLatitude()				{ return $this->latitude; }
-	public function getLongitude()				{ return $this->longitude; }
+	
+	public function getLatitude() { 
+	
+		if($this->latitude == '' || $this->latitude == 0 || $this->latitude == NULL) { return $this->gluon_lat; }	
+			else { return $this->latitude; }
+		
+	}
+	
+	public function getLongitude() { 
+		
+		if($this->longitude == '' || $this->longitude == 0 || $this->longitude == NULL) { return $this->gluon_lon; }	
+			else { return $this->longitude; }
+		
+	}
 	
 	public function hideOnMap()	{ 
 		
 		if($this->hideOnMap == '1') { return true; } 
-		elseif($this->latitude == 0 && $this->longitude == 0) { return true; } 
+		elseif($this->getLatitude() == 0 && $this->getlongitude() == 0) { return true; } 
 		else { return false; }	
 	
 	}
@@ -105,6 +142,8 @@ class db_nodes {
 	public function getClientsCount()			{ if($this->isActive()) { return $this->clients; } else { return '0'; } }
 	public function VPNActive()					{ if($this->VPNActive == '1') { return true; } else { return false; } }
 	public function getGatewayQuality()			{ return $this->gatewayQuality; }
+	public function getContact()				{ return $this->gluon_contact; }
+	public function isActivated()				{ if($this->activated == '1') { return true; } else { return false; } }
 	
 	public function getLastSeen()				{ return $this->lastSeen->format('Y-m-d H:i:s'); }
 	public function getLastSeenWithTimezone()	{ return $this->lastSeen->format('Y-m-d H:i:sP'); }
@@ -122,6 +161,8 @@ class db_nodes {
 		return $output; 
 		
 	}
+	
+	public function getCommunitySting()			{ return $this->community_txt; }
 	
 	public function getCommunity() { 
 
