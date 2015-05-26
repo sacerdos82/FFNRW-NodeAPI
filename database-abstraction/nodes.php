@@ -106,8 +106,11 @@ class db_nodes {
 
 	public function getTheName() { 
 		
-		if($this->name == '' || $this->name == NULL) { return $this->gluon_name; }
-			else { return $this->name; }
+		if($this->name == '' || $this->name == NULL) { 
+			
+			if($this->gluon_name != NULL) { return $this->gluon_name; } else { return ''; }
+			
+		} else { return $this->name; }
 		
 	}
 	
@@ -115,15 +118,21 @@ class db_nodes {
 	
 	public function getLatitude() { 
 	
-		if($this->latitude == '' || $this->latitude == 0 || $this->latitude == NULL) { return $this->gluon_lat; }	
-			else { return $this->latitude; }
+		if($this->latitude == '' || $this->latitude == 0 || $this->latitude == NULL) { 
+			
+			if($this->gluon_lat != NULL) { return $this->gluon_lat; } else { return 0; }
+		
+		} else { return $this->latitude; }
 		
 	}
 	
 	public function getLongitude() { 
 		
-		if($this->longitude == '' || $this->longitude == 0 || $this->longitude == NULL) { return $this->gluon_lon; }	
-			else { return $this->longitude; }
+		if($this->longitude == '' || $this->longitude == 0 || $this->longitude == NULL) { 
+		
+			if($this->gluon_lon != NULL) { return $this->gluon_lon; } else { return 0; }
+			
+		} else { return $this->longitude; }
 		
 	}
 	
