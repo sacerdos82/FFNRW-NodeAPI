@@ -9,6 +9,7 @@ require_once(__PATH__ . '/api/route-get-node-additionalInformation.php');
 require_once(__PATH__ . '/api/route-get-node-statistics-clients.php');
 require_once(__PATH__ . '/api/route-get-node-byHWID-activated.php');
 require_once(__PATH__ . '/api/route-get-node-byFastD-activated.php');
+require_once(__PATH__ . '/api/route-get-node-byFastD-hwid.php');
 
 require_once(__PATH__ . '/api/route-get-nodes.php');
 require_once(__PATH__ . '/api/route-get-nodes-active.php');
@@ -41,5 +42,7 @@ require_once(__PATH__ . '/api/route-get-nodes-community-lost-format-geojson.php'
 
 require_once(__PATH__ . '/api/route-get-clients-count.php');
 require_once(__PATH__ . '/api/route-get-clients-community-count.php');
+
+require_once(__PATH__ . '/api/route-cron.php');
 	
 ?>
