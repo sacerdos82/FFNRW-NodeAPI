@@ -10,6 +10,7 @@ require_once(__PATH__ . '/api/route-get-node-statistics-clients.php');
 require_once(__PATH__ . '/api/route-get-node-byHWID-activated.php');
 require_once(__PATH__ . '/api/route-get-node-byFastD-activated.php');
 require_once(__PATH__ . '/api/route-get-node-byFastD-hwid.php');
+require_once(__PATH__ . '/api/route-get-node-byFastD-communityString.php');
 
 require_once(__PATH__ . '/api/route-get-nodes.php');
 require_once(__PATH__ . '/api/route-get-nodes-active.php');
