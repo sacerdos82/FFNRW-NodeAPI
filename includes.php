@@ -2,6 +2,8 @@
 
 // Externe Tools
 require_once(__PATH__ . '/tools-external/Slim/Slim.php');
+require_once(__PATH__ . '/tools-external/phpmailer/class.phpmailer.php');
+require_once(__PATH__ . '/tools-external/phpmailer/class.smtp.php');
 
 
 // Allgemeine Funktionen

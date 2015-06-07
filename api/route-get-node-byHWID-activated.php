@@ -2,7 +2,7 @@
 
 $api->get('/get/node/byHWID/:nodeHWID/activated', function($nodeHWID) use ($api) {
 
-	$result = dbSQL('SELECT activated FROM '. TBL_NODES .' WHERE hwid = "'. $nodeHWID .'" LIMIT 1');
+	$result = dbSQL('SELECT activated FROM '. TBL_NODES .' WHERE hwid = [u] "'. $nodeHWID .'" [u] LIMIT 1');
 	
 	if($result->num_rows == 0) { 
 		

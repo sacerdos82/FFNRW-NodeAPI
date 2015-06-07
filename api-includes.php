@@ -45,5 +45,6 @@ require_once(__PATH__ . '/api/route-get-clients-count.php');
 require_once(__PATH__ . '/api/route-get-clients-community-count.php');
 
 require_once(__PATH__ . '/api/route-cron.php');
+require_once(__PATH__ . '/api/route-validate.php');
 	
 ?>

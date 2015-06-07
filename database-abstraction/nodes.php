@@ -24,6 +24,7 @@ class db_nodes {
 	private $gluon_contact;
 	private $community_txt;
 	private $activated;
+	private $validationHash;
 		
 	
 	// Variablen die keine Entsprechung in der Datenbank haben
@@ -56,7 +57,8 @@ class db_nodes {
 									gluon_lon,
 									gluon_contact,
 									community_txt,
-									activated FROM '. TBL_NODES .' WHERE ID = [u] "'. $ID . '" [u]', 'ALL');				
+									activated,
+									validationhash FROM '. TBL_NODES .' WHERE ID = [u] "'. $ID . '" [u]', 'ALL');				
 			
 			
 			// Fehlermeldung, wenn keine Abfrage zustande kam
@@ -84,6 +86,7 @@ class db_nodes {
 			$this->gluon_contact			= $row->gluon_contact;
 			$this->community_txt			= $row->community_txt;
 			$this->activated				= $row->activated;
+			$this->validationHash			= $row->validationhash;
 			
 			$this->lastSeen	= new DateTime();
 			$this->lastSeen->SetTimezone(new DateTimeZone('Europe/Berlin'));
@@ -153,6 +156,7 @@ class db_nodes {
 	public function getGatewayQuality()			{ return $this->gatewayQuality; }
 	public function getContact()				{ return $this->gluon_contact; }
 	public function isActivated()				{ if($this->activated == '1') { return true; } else { return false; } }
+	public function getValidationHash()			{ return $this->validationHash; }
 	
 	public function getLastSeen()				{ return $this->lastSeen->format('Y-m-d H:i:s'); }
 	public function getLastSeenWithTimezone()	{ return $this->lastSeen->format('Y-m-d H:i:sP'); }

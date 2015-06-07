@@ -2,7 +2,7 @@
 
 $api->get('/get/node/byFastD/:nodeFastD/communityString', function($nodeFastD) use ($api) {
 
-	$result = dbSQL('SELECT community_txt FROM '. TBL_NODES .' WHERE fastd = "'. $nodeFastD .'" LIMIT 1');
+	$result = dbSQL('SELECT community_txt FROM '. TBL_NODES .' WHERE fastd = [u] "'. $nodeFastD .'" [u] LIMIT 1');
 	
 	if($result->num_rows == 0) { 
 		
