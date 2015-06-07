@@ -20,7 +20,7 @@ $api->get('/validate/:validationHash', function($validationHash) use ($api) {
 	$node = new db_nodes($row->id);
 	
 	// Alternative Datenbankverbindung
-	$db2 = new mysqli('localhost', 'root', '123', 'freifunk-nodes-dump');
+	$db2 = new mysqli('', '', '', '');
 	if($db2->connect_errno) { logToFile('mysql-db2-errors', 'Connection Error ' . $db2->connect_errno); } // Verbindungsfehler Protokollieren
 	$db2->query("SET NAMES 'utf8'");
 	

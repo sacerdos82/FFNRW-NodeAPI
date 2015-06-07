@@ -19,7 +19,7 @@ $api->get('/cron/:key', function($key) use ($api) {
 		$errorPayload = '';
 	
 		// Alternative Datenbankverbindung
-		$db2 = new mysqli('localhost', 'root', '123', 'freifunk-nodes-dump');
+		$db2 = new mysqli('', '', '', '');
 		if($db2->connect_errno) { logToFile('mysql-db2-errors', 'Connection Error ' . $db2->connect_errno); } // Verbindungsfehler Protokollieren
 		$db2->query("SET NAMES 'utf8'");
 		
