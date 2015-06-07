@@ -77,7 +77,7 @@ $api->get('/validate/:validationHash', function($validationHash) use ($api) {
 	
 	
 	// WebHook an Slack senden
-	$url = 'https://hooks.slack.com/services/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';
+	$url = '';
 
 	$payload = '[NodeAPI] Knoten '. $node->getID() .' wurde erfolgreich für Community '. ucfirst($node->getCommunitySting()) .' freigeschaltet.';
 			 

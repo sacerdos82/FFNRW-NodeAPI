@@ -97,7 +97,7 @@ $api->get('/cron/:key', function($key) use ($api) {
 		
 		
 		// WebHook an Slack senden
-		$url = 'https://hooks.slack.com/services/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';
+		$url = '';
 
 		$payload = '[NodeAPI] Neuer Knoten in Community '. ucfirst($node->getCommunitySting()) .'.\n'
 				 . 'ID: '. $node->getID() .'\n'
