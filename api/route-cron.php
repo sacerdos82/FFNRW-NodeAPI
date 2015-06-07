@@ -48,10 +48,10 @@ $api->get('/cron/:key', function($key) use ($api) {
 			$mail = new PHPMailer;
 	
 			$mail->isSMTP();
-			$mail->Host 		= 'we70a.netcup.net';
+			$mail->Host 		= '';
 			$mail->SMTPAuth		= true;
-			$mail->Username 	= 'web570p7';
-			$mail->Password 	= 'Pk4jBKXx';
+			$mail->Username 	= '';
+			$mail->Password 	= '';
 			$mail->SMTPSecure 	= 'tls';
 			$mail->Port 		= 587;
 			$mail->CharSet 		= "UTF-8";
